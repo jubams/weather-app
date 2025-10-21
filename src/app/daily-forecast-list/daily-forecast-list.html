@@ -1,0 +1,11 @@
+<div>
+  <p class="text-lg font-semibold mb-4">Daily Forecast</p>
+  <div class="flex flex-wrap gap-3 flex-nowrap overflow-x-auto">
+    <app-daily-forecast-card
+      *ngFor="let day of daily || skeletonArray"
+      [day]="day"
+      (selectedDay)="onSelectedDay(day)"
+      class="flex-shrink-0 min-w-26 max-w-26"
+    ></app-daily-forecast-card>
+  </div>
+</div>

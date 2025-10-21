@@ -1,0 +1,21 @@
+<div
+  class="flex flex-row items-center justify-between flex-col bg-[#312f4bff] px-3 py-2 rounded-xl gap-3 hover:bg-[#3d3b5eff] transition-colors duration-200 cursor-pointer"
+  (click)="onSelectedHour()"
+>
+  <div class="flex items-center gap-2">
+    <img
+      [src]="
+        hour?.code
+          ? 'images/' + hour?.code + '.webp'
+          : 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22%3E%3C/svg%3E'
+      "
+      alt="Weather icon"
+      class="w-8 h-8"
+      loading="lazy"
+    />
+    <p class="text-sm font-medium whitespace-nowrap">
+      {{ (hour?.time | date : 'ha') ?? '' }}
+    </p>
+  </div>
+  <p *ngIf="hour?.temp !== null" class="text-sm text-base font-semibold">{{ hour?.temp }}°</p>
+</div>

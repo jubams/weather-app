@@ -1,0 +1,51 @@
+<div class="flex flex-col sm:flex-row sm:items-center gap-3 w-full">
+  <div class="relative w-full sm:flex-1">
+    <i class="fas fa-search"></i>
+    <input
+      type="text"
+      name="search"
+      id="search"
+      (focus)="open()"
+      (blur)="close()"
+      (input)="onSearchChange(searchInput.value)"
+      #searchInput
+      placeholder="Search location"
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+      class="p-2 rounded-md w-full bg-[#312f4bff] focus:outline-2 focus:outline-offset-2 focus:outline-[#4455daff] text-white placeholder:text-white/70"
+    />
+
+    @if (searchSuggestionsOpen) {
+    <div
+      (mousedown)="$event.preventDefault()"
+      role="listbox"
+      class="absolute top-full left-0 z-20 mt-2 bg-[#312f4bff] rounded-md shadow-lg w-full max-h-60 overflow-y-auto px-2 py-2 scrollbar-hide"
+    >
+      @if(searchInput.value.trim() === '') {
+      <p class="text-gray-400" role="status">Please enter a search city</p>
+      } @else if(citiesResults.length === 0) {
+      <p class="text-gray-400" role="status">No results found</p>
+      } @else{ @for (suggestion of citiesResults.slice(0, 8); track $index) {
+      <button
+        role="option"
+        class="block w-full h-8 text-left rounded-md hover:bg-[#3d3b5eff] px-2 flex items-center justify-between cursor-pointer"
+        (click)="addToInput(suggestion)"
+      >
+        <p>
+          {{ suggestion }}
+        </p>
+      </button>
+      } }
+    </div>
+    }
+  </div>
+
+  <button
+    (click)="onSubmit(searchInput.value)"
+    class="w-full sm:w-auto bg-[#2d1c9cff] rounded-md px-4 py-2 cursor-pointer hover:bg-[#4455daff] focus:outline-2 focus:outline-offset-2 focus:outline-[#4455daff]"
+  >
+    Search
+  </button>
+</div>

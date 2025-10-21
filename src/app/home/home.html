@@ -1,0 +1,44 @@
+<div class="bg-[#03012dff] min-h-screen text-white">
+  <app-header (unitsChange)="onUnitsChange($event)" [units]="units"></app-header>
+  <div class="flex flex-col items-center gap-6 mt-4 px-4 w-full">
+    <h1 class="text-2xl font-bold text-center">How's the sky looking today?</h1>
+    <div class="w-full max-w-2xl">
+      <app-search (search)="onSearch($event)"></app-search>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="flex justify-center items-center mt-10">
+    <p class="text-white/70">Loading weather data...</p>
+  </div>
+  <div *ngIf="error" class="flex justify-center items-center mt-10">
+    <p class="text-red-500 text-2xl">Error: {{ error }}</p>
+  </div>
+  <div
+    class="flex flex-col md:flex-row gap-4 py-4 px-4 max-w-6xl mx-auto mt-6"
+    *ngIf="!loading && !error"
+  >
+    <div class="flex flex-col flex-1 gap-4">
+      <app-today-info
+        [hour]="selectedHour"
+        [units]="forecast?.units"
+        [place]="forecast?.place"
+        class="flex-1"
+      ></app-today-info>
+
+      <app-daily-forecast-list
+        [daily]="forecast?.daily"
+        (selectedDay)="onSelectedDay($event)"
+        class="flex-1"
+      ></app-daily-forecast-list>
+    </div>
+
+    <div class="flex-shrink-0 w-full md:w-1/4 rounded-xl">
+      <app-hourly-forecast-list
+        [hourly]="forecast?.hourlyByDay?.[selectedDate] || []"
+        (selectedHour)="onSelectedHour($event)"
+      ></app-hourly-forecast-list>
+    </div>
+  </div>
+
+  <p></p>
+</div>

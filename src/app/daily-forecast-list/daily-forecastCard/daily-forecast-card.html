@@ -1,0 +1,19 @@
+<div class="bg-[#272541] px-4 py-3 rounded-xl flex flex-col items-center justify-center gap-3 hover:bg-[#3d3b5eff] transition-colors duration-200 cursor-pointer" (click)="onSelectedDay()">
+  <p class="text-sm font-medium whitespace-nowrap">
+    {{ (day?.iso | date : 'EEE') ?? '-' }}
+  </p>
+  <img
+    [src]="
+      day?.code
+        ? 'images/' + day?.code + '.webp'
+        : 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2232%22 height=%2232%22%3E%3C/svg%3E'
+    "
+    alt="Weather icon"
+    class="w-8 h-8"
+    loading="lazy"
+  />
+  <div class="flex items-center gap-1">
+    <p class="text-sm text-base font-semibold">{{ day?.max ?? '-' }}°</p>
+    <p class="text-sm font-medium text-gray-400">{{ day?.min ?? '-' }}°</p>
+  </div>
+</div>
