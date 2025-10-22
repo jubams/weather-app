@@ -14,6 +14,11 @@ describe('Header', () => {
 
     fixture = TestBed.createComponent(Header);
     component = fixture.componentInstance;
+    component.units = {
+      Temperature: 'celsius',
+      WindSpeed: 'kmh',
+      Precipitation: 'mm',
+    };
     fixture.detectChanges();
   });
 
